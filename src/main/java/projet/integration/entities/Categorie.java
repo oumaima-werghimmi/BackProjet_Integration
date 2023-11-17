@@ -19,7 +19,7 @@ public class Categorie implements Serializable {
 		private int id;
 		private static final long serialVersionUID = 1L;
 		private Double budget;
-		private Date mois;
+		private String mois;
 		private String nom ;
 		
 		
@@ -36,10 +36,10 @@ public class Categorie implements Serializable {
 	public void setBudget(Double budget) {
 		this.budget = budget;
 	}
-	public Date getMois() {
+	public String getMois() {
 		return mois;
 	}
-	public void setMois(Date mois) {
+	public void setMois(String mois) {
 		this.mois = mois;
 	}
 	public String getNom() {
@@ -49,7 +49,7 @@ public class Categorie implements Serializable {
 		this.nom = nom;
 	}
 
-	public Categorie(int id, Double budget, Date mois, String nom) {
+	public Categorie(int id, Double budget, String mois, String nom) {
 		super();
 		this.id = id;
 		this.budget = budget;

@@ -2,7 +2,6 @@ package projet.integration.entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,14 +18,34 @@ public class Transaction implements Serializable {
 	
 
 @Id
-@GeneratedValue (strategy = GenerationType.AUTO)
+@GeneratedValue(strategy = GenerationType.AUTO)
 		private int id;
-		private static final long serialVersionUID = 1L;
 		private String type ;
-		private Double montant;
+		private String montant;
 		@Temporal(TemporalType.DATE)
 		
 		private LocalDate date;
+	    private transient String categorieName;
+
+		private String t_nom;
+
+		
+			@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User  user;
+
+	
+	
+	@ManyToOne
+	@JoinColumn(name = "categorie_id")
+	private Categorie categorie;
+    public String getT_nom() {
+        return t_nom;
+    }
+
+    public void setT_nom(String t_nom) {
+        this.t_nom = t_nom;
+    }
 
 	public int getId() {
 		return id;
@@ -44,11 +63,11 @@ public class Transaction implements Serializable {
 		this.type = type;
 	}
 	
-	public Double getMontant() {
+	public String getMontant() {
 		return montant;
 	}
 	
-	public void setMontant(Double montant) {
+	public void setMontant(String montant) {
 		this.montant = montant;
 	}
 	
@@ -61,27 +80,40 @@ public class Transaction implements Serializable {
 	}
 	
 
+ public Categorie getCategorie() {
+        return categorie;
+    }
+
+	public void setCategorie(Categorie categorie) {
+        this.categorie = categorie;
+        if (categorie != null) {
+            this.categorieName = categorie.getNom();
+        }
+    }
+
+    public String getCategorieName() {
+        return categorieName;
+    }
+
+    public void setCategorieName(String categorieName) {
+        this.categorieName = categorieName;
+    }
 
 
-	public Transaction(int id, String type, Double montant, LocalDate date) {
+
+	public Transaction(int id, String type, String montant, LocalDate date,Categorie categorie,String t_nom) {
 		super();
 		this.id = id;
 		this.type = type;
 		this.montant = montant;
 		this.date = date;
+		this.categorie = categorie;
+		this.t_nom = t_nom;
 	}
-
-	public Transaction() {
+   	public Transaction() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private User  user;
+	
 
-	
-	
-	@ManyToOne
-	@JoinColumn(name = "categorie_id")
-	private Categorie categorie;
 }

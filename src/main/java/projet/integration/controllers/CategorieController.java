@@ -53,7 +53,7 @@ public class CategorieController {
 	
 	//***************
     @GetMapping("/budget")
-    public Categorie getBudgetByMois(@RequestParam("mois") @DateTimeFormat(pattern = "yyyy-MM-dd") Date mois) {
+    public Categorie getBudgetByMois(@RequestParam("mois") String mois) {
         return CatService.getBudgetByMois(mois);
     }
 

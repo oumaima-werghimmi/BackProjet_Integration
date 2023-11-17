@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import projet.integration.entities.Transaction;
 import projet.integration.services.TransactionService;
 
@@ -26,10 +29,14 @@ public class TransactionController {
 	@Autowired
 	TransactionService trService;
 	
-	@GetMapping
-	List<Transaction> all(){
-		return trService.findTransaction();
-	}
+	@PersistenceContext
+    private EntityManager entityManager;
+
+    @GetMapping()
+    public List<Transaction> getAll() {
+        return (trService.getAllTransactionsWithCategoryName());
+    }
+	
 	
 	@PostMapping()
 	Transaction newTransaction(@RequestBody Transaction c) {
